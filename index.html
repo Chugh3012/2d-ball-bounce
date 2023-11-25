@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="script.js"></script>
+    <div id="controls">
+        <label for="gravityRange">Gravity:</label>
+        <input type="range" id="gravityRange" min="0.01" max="1" step="0.01" value="0.1">
+    
+        <label for="bounceRange">Bounce Efficiency:</label>
+        <input type="range" id="bounceRange" min="0.01" max="1" step="0.01" value="0.9">
+    
+        <label for="speedRange">Speed Increment:</label>
+        <input type="range" id="speedRange" min="0.01" max="1" step="0.01" value="0.6">
+    </div>
+    
+</body>
+</html>

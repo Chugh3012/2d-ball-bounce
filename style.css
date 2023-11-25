@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    background-color: black;
+}
+
+#gameCanvas {
+    border: 2px solid black; /* Adjusted for visibility against black background */
+    background-color: transparent;
+}
+
+#controls {
+    margin-top: -40px; /* Adjust space between the circle and the sliders */
+    width: 90%; /* Adjust width to fit mobile screens */
+    max-width: 400px; /* Maximum width for larger screens */
+}
+
+#controls label {
+    display: block; /* This ensures the label is above the slider */
+    margin: 10px 0 5px; /* Add space above and below the label */
+    color: white;
+}
+
+#controls input[type=range] {
+    width: 100%;
+    margin: 5px 0; /* Increase spacing if sliders are too close */
+}
