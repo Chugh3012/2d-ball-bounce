@@ -51,12 +51,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         shrinking: false,
         currentColor: { r: 255, g: 0, b: 0 },
         lineColor: { r: 0, g: 95, b: 221 },
-        // targetColor: { r: 0, g: 95, b: 221 },
-        // transitioningColor: false
+        targetColor: { r: 0, g: 95, b: 221 },
+        transitioningColor: false
     };
     const maxSpeed = 2000;
     const speedIncrementDelta = 0.006;
-    // const colorChangeSpeed = 0.1;
+    const colorChangeSpeed = 0.1;
     let bouncePoints = [];
     
     function getRandomColor() {
@@ -113,18 +113,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     function playBounceSound() {
         let oscillator = audioContext.createOscillator();
-        oscillator.type = 'sine'; // Sine wave for a smoother note
+        let gainNode = audioContext.createGain();
     
-        // Select a note frequency based on ball position or other factors
-        let notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]; // C4 to B4 notes
-        let noteIndex = Math.floor(Math.random() * notes.length); // Random note selection
-        oscillator.frequency.setValueAtTime(notes[noteIndex], audioContext.currentTime);
+        // Use a sine wave for a smooth and less abrasive sound
+        oscillator.type = 'sine';
+    
+        // Consistent note frequency, chosen for its soothing quality
+        let noteFrequency = 440.00; // A4 note, adjust as needed for pleasantness
+        oscillator.frequency.setValueAtTime(noteFrequency, audioContext.currentTime);
+    
+        // Set a consistent and moderate gain value
+        gainNode.gain.value = 0.5;
     
         // Connect and play the sound
-        oscillator.connect(audioContext.destination);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+    
         oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.2); // Play the note for a short duration
+        oscillator.stop(audioContext.currentTime + 0.2); // Short duration for less distraction
     }
+    
+    
     
     function update() {
         ball.dy += gravity;
@@ -154,8 +163,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // Indicate that the ball should start shrinking
             ball.shrinking = true;
             ball.lineColor = getRandomColor();
-            // ball.targetColor = getRandomColor();
-            // ball.transitioningColor = true;
+            ball.targetColor = ball.lineColor;
+            ball.transitioningColor = true;
     
             if (audioContext.state !== 'suspended') {
                 playBounceSound();
